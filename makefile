@@ -1,4 +1,4 @@
-all: compile run clean
+all: compile run
 
 compile: dijkstra.c
 	gcc dijkstra.c -o assignment3

@@ -192,7 +192,10 @@ void dijkstra(Graph* graph, int src, FILE *ptr_output) {
     }
 
     for (int i = 0; i < num_vertices; ++i){
-        fprintf(ptr_output,"%d\t%d\t%d", i, dist[i], pred[i]);
+        if(pred[i]==-1)
+            fprintf(ptr_output,"%d\t%d\tNIL", i, dist[i]);
+        else
+            fprintf(ptr_output,"%d\t%d\t%d", i, dist[i], pred[i]);
         if(i != num_vertices-1)
             fprintf(ptr_output,"\n");
     }
@@ -220,7 +223,5 @@ int main(int argc, char *argv[]) {
     }
 
     dijkstra(graph, source,ptr_output);
-    scanf("%d",&num_edges);
-
     return 0;
 }
