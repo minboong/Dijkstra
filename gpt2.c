@@ -44,7 +44,7 @@ void decreaseKey(MinHeap* minHeap, int v, int dist);
 int isInMinHeap(MinHeap *minHeap, int v);
 Graph* createGraph(int num_vertices);
 void addEdge(Graph* graph, int src, int dest, int weight);
-void dijkstra(Graph* graph, int src, FILE *ptr_output);
+void dijkstra(Graph* graph, int src);
 
 // 함수 정의
 MinHeapNode* newMinHeapNode(int v, int dist) {
@@ -151,7 +151,7 @@ void addEdge(Graph* graph, int src, int dest, int weight) {
     graph->array[src].head = newNode;
 }
 
-void dijkstra(Graph* graph, int src, FILE *ptr_output) {
+void dijkstra(Graph* graph, int src) {
     int num_vertices = graph->num_vertices;
     int dist[num_vertices];
     int pred[num_vertices];
@@ -188,35 +188,23 @@ void dijkstra(Graph* graph, int src, FILE *ptr_output) {
         }
     }
 
-    for (int i = 0; i < num_vertices; ++i){
-        fprintf(ptr_output,"%d\t%d\t%d", i, dist[i], pred[i]);
-        if(i != num_vertices-1)
-            fprintf(ptr_output,"\n");
-    }
-
+    for (int i = 0; i < num_vertices; ++i)
+        printf("%d\t%d\t%d\n", i, dist[i], pred[i]);
 }
 
-int main(int argc, char *argv[]) {
-    FILE *ptr_input, *ptr_output;
-    ptr_input = fopen(argv[1],"r");
-    ptr_output = fopen(argv[2],"w");
-    if(ptr_input == NULL || ptr_output == NULL){
-        printf("Fail to read/create a file !\n");
-        exit(1);
-    }
-
+int main() {
     int num_vertices, num_edges, source;
-    fscanf(ptr_input,"%d\t%d\t%d\n", &num_vertices, &num_edges, &source);
+    scanf("%d %d %d", &num_vertices, &num_edges, &source);
 
     Graph* graph = createGraph(num_vertices);
 
     for (int i = 0; i < num_edges; ++i) {
         int src, dest, weight;
-        fscanf(ptr_input,"%d\t%d\t%d\n", &src, &dest, &weight);
+        scanf("%d %d %d", &src, &dest, &weight);
         addEdge(graph, src, dest, weight);
     }
 
-    dijkstra(graph, source,ptr_output);
+    dijkstra(graph, source);
     scanf("%d",&num_edges);
 
     return 0;
