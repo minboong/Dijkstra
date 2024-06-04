@@ -6,29 +6,32 @@
 #define NIL -1
 
 // 구조체 정의
-typedef struct {
+typedef struct MinHeapNode{
     int vertex;
     int distance;
 } MinHeapNode;
 
-typedef struct {
+typedef struct MinHeap{
     int size;
     int capacity;
     int *pos;
     MinHeapNode **array;
 } MinHeap;
 
-typedef struct {
+typedef struct AdjListNode AdjListNode;
+typedef struct AdjList AdjList;
+
+typedef struct AdjListNode{
     int dest;
     int weight;
     struct AdjListNode *next;
 } AdjListNode;
 
-typedef struct {
+typedef struct AdjList{
     AdjListNode *head;
 } AdjList;
 
-typedef struct {
+typedef struct Graph{
     int num_vertices;
     AdjList *array;
 } Graph;
